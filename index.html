@@ -1,31 +1,102 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TOP DAILY TIPS</title>
-<link rel="stylesheet" href="styles.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>TOP DAILY TIPS</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 <div class="app">
-<header class="topbar"><h1>TOP DAILY TIPS</h1></header>
 
-<section class="card">
-  <h2>Tracker</h2>
-  <div class="row">
-    <span>Example Match</span>
-    <span class="actions">✅ ❌</span>
-  </div>
-</section>
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <h1>TOP DAILY TIPS</h1>
+  </header>
 
-<section class="card">
-  <h2>Charts</h2>
-  <canvas id="bankroll"></canvas>
-  <canvas id="over25"></canvas>
-  <canvas id="btts"></canvas>
-</section>
+  <!-- DASHBOARD / FILTERS -->
+  <section class="card">
+    <div class="control">
+      <label>Search</label>
+      <input id="q" type="search" placeholder="Team, league, pick…" />
+    </div>
+
+    <div class="control">
+      <label>League</label>
+      <select id="league"></select>
+    </div>
+
+    <div class="control">
+      <label>Pick</label>
+      <select id="pick"></select>
+    </div>
+  </section>
+
+  <!-- TRACKER (COLLAPSIBLE) -->
+  <section class="card collapsible">
+    <div class="collapsible-header">
+      <h2>Tracker</h2>
+      <span>▼</span>
+    </div>
+
+    <div class="collapsible-content">
+
+      <!-- TRACKER CARD -->
+      <div class="card bet-card">
+        <div>
+          <strong>Example Match</strong><br />
+          <small>Over 2.5 Goals</small>
+        </div>
+
+        <div class="actions">
+          <button class="action-btn">✅</button>
+          <button class="action-btn">❌</button>
+          <button class="action-btn">📋</button>
+          <button class="action-btn">🗑️</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TABLE / LIST -->
+  <section class="card">
+    <div id="cardList"></div>
+
+    <div class="tableScroll">
+      <table id="tbl">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CHARTS (COLLAPSIBLE) -->
+  <section class="card collapsible">
+    <div class="collapsible-header">
+      <h2>Performance</h2>
+      <span>▼</span>
+    </div>
+
+    <div class="collapsible-content chart-card">
+      <h3>Bankroll</h3>
+      <canvas id="bankrollChart"></canvas>
+
+      <h3>Over 2.5</h3>
+      <canvas id="over25Chart"></canvas>
+
+      <h3>BTTS Yes</h3>
+      <canvas id="bttsChart"></canvas>
+    </div>
+  </section>
 
 </div>
+
 <script src="app.js"></script>
 </body>
 </html>
