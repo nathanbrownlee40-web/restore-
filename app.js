@@ -135,12 +135,13 @@ document.addEventListener("click", (e) => {
   if (!card) return;
 
   const market =
-    card.querySelector(".market")?.textContent.trim() ||
-    "Over 2.5";
+    card.textContent.includes("BTTS") ? "BTTS Yes" : "Over 2.5";
 
   let profit = 0;
-  if (btn.classList.contains("win")) profit = 1;
-  if (btn.classList.contains("loss")) profit = -1;
+  const symbol = btn.textContent.trim();
+
+  if (symbol === "✅") profit = 1;
+  if (symbol === "❌") profit = -1;
 
   addResult({ market, profit });
 });
