@@ -126,30 +126,21 @@ function addResult({ market, profit }) {
   renderCharts();
   console.log("Result saved:", results.at(-1));
 }
-
 // Hook into ✅ ❌ buttons
 document.addEventListener("click", (e) => {
-  const btn = e.target;
-  if (!btn || !btn.classList.contains("action-btn")) return;
+  const btn = e.target.closest(".result-btn");
+  if (!btn) return;
 
   const card = btn.closest(".bet-card");
   if (!card) return;
 
-  const text = btn.textContent.trim();
-  const marketText = card.textContent;
+  const market =
+    card.querySelector(".market")?.textContent.trim() ||
+    "Over 2.5";
 
-  let market = "Other";
-  if (/over\s*2\.5/i.test(marketText)) market = "Over 2.5";
-  if (/btts/i.test(marketText)) market = "BTTS";
+  let profit = 0;
+  if (btn.classList.contains("win")) profit = 1;
+  if (btn.classList.contains("loss")) profit = -1;
 
-  // Default stake logic (can be improved later)
-  const STAKE = 10;
-
-  if (text === "✅") {
-    addResult({ market, profit: STAKE });
-  }
-
-  if (text === "❌") {
-    addResult({ market, profit: -STAKE });
-  }
+  addResult({ market, profit });
 });
