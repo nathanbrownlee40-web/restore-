@@ -1,0 +1,6 @@
+body{margin:0;background:#0b1220;color:#e5e7eb;font-family:system-ui}
+.app{max-width:420px;margin:auto;padding:12px}
+.card{background:#111827;border-radius:16px;padding:12px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center}
+.actions{display:flex;gap:8px}
+canvas{width:100%;max-width:100%}
