@@ -51,3 +51,51 @@ window.addEventListener("load", () => {
   makeChart("over25Chart", "Over 2.5", over25Data, "#3b82f6");
   makeChart("bttsChart", "BTTS", bttsData, "#a855f7");
 });
+// ===== RESULT TRACKING (STEP A1) =====
+const STORAGE_KEY = "top_daily_tips_results";
+
+function getResults() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+}
+
+function saveResults(results) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(results));
+}
+
+function addResult({ market, profit }) {
+  const results = getResults();
+  results.push({
+    market,
+    profit,
+    date: new Date().toISOString().slice(0, 10)
+  });
+  saveResults(results);
+  console.log("Result saved:", results.at(-1));
+}
+
+// Hook into ✅ ❌ buttons
+document.addEventListener("click", (e) => {
+  const btn = e.target;
+  if (!btn || !btn.classList.contains("action-btn")) return;
+
+  const card = btn.closest(".bet-card");
+  if (!card) return;
+
+  const text = btn.textContent.trim();
+  const marketText = card.textContent;
+
+  let market = "Other";
+  if (/over\s*2\.5/i.test(marketText)) market = "Over 2.5";
+  if (/btts/i.test(marketText)) market = "BTTS";
+
+  // Default stake logic (can be improved later)
+  const STAKE = 10;
+
+  if (text === "✅") {
+    addResult({ market, profit: STAKE });
+  }
+
+  if (text === "❌") {
+    addResult({ market, profit: -STAKE });
+  }
+});
