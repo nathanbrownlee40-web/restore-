@@ -1,9 +1,62 @@
-// ===== SIMPLE STATE (example data – your real data can replace this) =====
-const bankrollData = [0, 10, 25, 20, 40, 55, 50];
-const over25Data   = [0, 5, 12, 18, 15, 22, 30];
-const bttsData     = [0, 8, 6, 14, 20, 18, 26];
+// ===== CHART DATA FROM REAL RESULTS =====
+function buildSeries(filterMarket = null) {
+  const results = getResults();
+  let running = 0;
+  const data = [];
 
-const labels = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
+  results.forEach(r => {
+    if (!filterMarket || r.market === filterMarket) {
+      running += r.profit;
+      data.push(running);
+    }
+  });
+
+  return data.length ? data : [0];
+}
+
+function buildLabels() {
+  const results = getResults();
+  return results.map((_, i) => `#${i + 1}`);
+}
+
+// Destroy & rebuild charts safely
+let bankrollChart, over25Chart, bttsChart;
+
+function renderCharts() {
+  const labels = buildLabels();
+
+  const bankrollData = buildSeries();
+  const over25Data = buildSeries("Over 2.5");
+  const bttsData = buildSeries("BTTS");
+
+  if (bankrollChart) bankrollChart.destroy();
+  if (over25Chart) over25Chart.destroy();
+  if (bttsChart) bttsChart.destroy();
+
+  bankrollChart = makeChart(
+    "bankrollChart",
+    "Bankroll",
+    bankrollData,
+    "#22c55e"
+  );
+
+  over25Chart = makeChart(
+    "over25Chart",
+    "Over 2.5",
+    over25Data,
+    "#3b82f6"
+  );
+
+  bttsChart = makeChart(
+    "bttsChart",
+    "BTTS",
+    bttsData,
+    "#a855f7"
+  );
+}
+
+// Re-render charts whenever page loads
+window.addEventListener("load", renderCharts);
 
 // ===== CHART HELPER =====
 function makeChart(canvasId, label, data, color) {
@@ -70,6 +123,7 @@ function addResult({ market, profit }) {
     date: new Date().toISOString().slice(0, 10)
   });
   saveResults(results);
+  renderCharts();
   console.log("Result saved:", results.at(-1));
 }
 
