@@ -1,6 +1,160 @@
-body{margin:0;background:#0b1220;color:#e5e7eb;font-family:system-ui}
-.app{max-width:420px;margin:auto;padding:12px}
-.card{background:#111827;border-radius:16px;padding:12px;margin-bottom:12px}
-.row{display:flex;justify-content:space-between;align-items:center}
-.actions{display:flex;gap:8px}
-canvas{width:100%;max-width:100%}
+/* ===== BASE RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0b1220;
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== APP WRAP ===== */
+.app {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* ===== CONTROLS ===== */
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.control label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.control input,
+.control select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: radial-gradient(
+    120% 120% at top left,
+    #162033,
+    #0b1220
+  );
+  border: 1px solid #1f2937;
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 14px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ===== COLLAPSIBLE ===== */
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.collapsible-content {
+  margin-top: 12px;
+}
+
+/* ===== TRACKER CARD ===== */
+.bet-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== ACTION ICONS ===== */
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #374151;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== TABLE ===== */
+.tableScroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #1f2937;
+}
+
+/* ===== CHARTS ===== */
+.chart-card canvas {
+  width: 100% !important;
+  height: auto !important;
+  margin-bottom: 16px;
+}
+
+/* ===== GLOW EFFECTS ===== */
+.chart-green {
+  filter: drop-shadow(0 0 4px rgba(34,197,94,0.5));
+}
+
+.chart-red {
+  filter: drop-shadow(0 0 4px rgba(239,68,68,0.5));
+}
+
+.chart-blue {
+  filter: drop-shadow(0 0 4px rgba(59,130,246,0.5));
+}
+
+/* ===== MOBILE SAFETY ===== */
+@media (max-width: 480px) {
+  .app {
+    padding: 10px;
+  }
+
+  .bet-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
